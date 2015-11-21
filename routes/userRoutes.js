@@ -18,6 +18,6 @@ router.route('/user/auth')
   .post(user.auth);
 
 router.route('/user/signup')
-  .post(user.auth);
+  .post(user.create);
 
 module.exports = router;
