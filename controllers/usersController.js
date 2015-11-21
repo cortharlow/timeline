@@ -12,4 +12,21 @@ router.route('/')
     next();
   })
 
+  /////////////////////////
+
+router.route('/login')
+  .post((req, res, next) => {
+    let userParams = req.body.user;
+
+    User.findOne({email: userParams.email}, (err, currentUser) => {
+      if (err) throw err;
+
+
+    })
+    next();
+  })
+
+
+  /////////////////////////
+
 module.exports = router;
