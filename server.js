@@ -1,6 +1,6 @@
 'use strict';
-var express = require('express');
-var app = express();
+let express = require('express');
+let app = express();
 app.use(express.static('./public'));
 
 
