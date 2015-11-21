@@ -5,7 +5,7 @@ let path = require('path');
 let bodyParser = require('body-parser');
 
 //Require routes
-let userRoutes = require('./controllers/usersController');
+let userRoutes = require('./routes/userRoutes');
 
 let app = express();
 
