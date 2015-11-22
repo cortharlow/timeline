@@ -7,7 +7,13 @@ function geoFindMe(){
     let map;
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: position.coords.latitude, lng: position.coords.longitude},
-      zoom: 15
+      zoom: 15,
+      styles: [{"stylers": [
+        { hue: "#00ffe6" },
+        { saturation: -20 },
+        { lightness: -20 },
+        { gamma: 1.51 }
+      ]}]
     });
     let marker = new google.maps.Marker({
       position: {lat: position.coords.latitude, lng: position.coords.longitude},
