@@ -7,15 +7,15 @@ let expressJWT = require('express-jwt');
 const secret = "napcahmpc";
 
 router.route('/moment')
-  .all(expressJWT({
-    secret: secret,
-    userProperty: 'auth'
-  }))
-  .get(moment.fetch) //
-  // .fetch specific 
-  .post(moment.create)
-  .put(moment.update)
-  .delete(moment.destroy);
+  // .all(expressJWT({
+  //   secret: secret,
+  //   userProperty: 'auth'
+  // }))
+  // .get(moment.fetch) //
+  // .fetch specific
+  .post(moment.create);
+  // .put(moment.update)
+  // .delete(moment.destroy);
 
 module.exports = router;
 

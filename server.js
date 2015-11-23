@@ -9,6 +9,7 @@ let io = require('socket.io')(server);
 
 //Require routes
 let userRoutes = require('./routes/userRoutes');
+let momentRoutes = require('./routes/momentRoutes');
 
 
 app.use(logger('dev'));
@@ -31,20 +32,20 @@ db.once('open', function (callback) {
 io.on('connection', function(client) {
   console.log('Client connected');
 
-  client.on('current location', function(location){
-    //save location to db under client name
-    // User.findById(client.id, function(err, user) {
-    //   if err throw err;
-    //   user.events.push(location);
-    //   user.save();
-    // });
-  });
-  client.on('new moment', function(moment){
-    //for adding a moment
-    //save moment for user
-    io.emit('moment added', moment);
-  });
-
+//   client.on('current location', function(location){
+//     //save location to db under client name
+//     // User.findById(client.id, function(err, user) {
+//     //   if err throw err;
+//     //   user.events.push(location);
+//     //   user.save();
+//     // });
+//   });
+//   client.on('new moment', function(moment){
+//     //for adding a moment
+//     //save moment for user
+//     io.emit('moment added', moment);
+//   });
+//
 });
 
 app.use('/', userRoutes);
@@ -53,6 +54,7 @@ app.use('/', userRoutes);
 //     io.emit('moment found', moments)
 //   })
 // })
+app.use('/', momentRoutes);
 
 server.listen(3000, function() {
   let host = server.address().address;
