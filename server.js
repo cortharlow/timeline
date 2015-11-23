@@ -48,13 +48,13 @@ io.on('connection', function(client) {
 });
 
 app.use('/', userRoutes);
-app.get('/moments', function(req, res){
-  Moment.find(null, function(err, moments){
-    io.emit('moment found', moments)
-  })
-})
-server.listen()
-let server = app.listen(3000, () => {
+// app.get('/moments', function(req, res){
+//   Moment.find(null, function(err, moments){
+//     io.emit('moment found', moments)
+//   })
+// })
+
+server.listen(3000, function() {
   let host = server.address().address;
   let port = server.address().port;
   console.log('express running', host, port);
