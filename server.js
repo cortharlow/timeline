@@ -3,11 +3,13 @@ let express = require('express');
 let logger = require('morgan');
 let path = require('path');
 let bodyParser = require('body-parser');
+let app = express();
+let server = require('http').createServer(app);
+let io = require('socket.io')(server);
 
 //Require routes
 let userRoutes = require('./routes/userRoutes');
 
-let app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -26,10 +28,44 @@ db.once('open', function (callback) {
   console.log('Database Connection Established');
 });
 
-app.use('/', userRoutes);
+io.on('connection', function(client) {
+  console.log('Client connected');
 
+  client.on('current location', function(location){
+    //save location to db under client name
+    // User.findById(client.id, function(err, user) {
+    //   if err throw err;
+    //   user.events.push(location);
+    //   user.save();
+    // });
+  });
+  client.on('new moment', function(moment){
+    //for adding a moment
+    //save moment for user
+    io.emit('moment added', moment);
+  });
+
+});
+
+app.use('/', userRoutes);
+app.get('/moments', function(req, res){
+  Moment.find(null, function(err, moments){
+    io.emit('moment found', moments)
+  })
+})
+server.listen()
 let server = app.listen(3000, () => {
   let host = server.address().address;
   let port = server.address().port;
   console.log('express running', host, port);
 });
+
+
+//
+// // seperate file
+// module.exports = function(io) {
+//   io.on('blah')
+// };
+//
+// //server.js
+// var ioStuff = require('./iofile.js')(io)
