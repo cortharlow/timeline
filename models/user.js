@@ -7,11 +7,11 @@ let userSchema = new mongoose.Schema({
   l_name: {type: String, required: true},
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
-  events: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Location'
-  }]
-})
+  home: Object,
+  work: Object,
+  created_at: Date,
+  updated_at: Date
+});
 
 userSchema.pre('save', function(next) {
   let user = this;
