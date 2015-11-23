@@ -1,7 +1,174 @@
+/*
+TIMELINE LOCATION APP
+
+-------- STYLE GUIDE --------
+1. Classes and IDs are lowercase with words separated by a dash
+  Ex: .user-profile {}
+      .post-header {}
+      #top-navigation {}
+
+2. Image file names are lowercase with words separated by a dash
+  Ex: icon-home.png
+
+3. Image file names are prefixed with their usage
+  Ex: icon-home.png
+      bg-container.jpg
+      bg-home.jpg
+
+4. Use classes over IDs whenever possible
+
+5. Hex is preferred for color unless opacity is necessary
+
+6. Name spacing should be done at component level, not page
+  Ex: .nav
+      .nav-bar
+      .nav-list
+
+7. CSS blocks should be separated by a single new line
+
+
+-------- Fonts --------
+Header --> font-family: 'Racing Sans One', cursive;
+Text --> font-family: 'Droid Sans', sans-serif;
+
+-------- Colors --------
+Basic Theme (Light):
+  Navigation Bar - #F5F5F5
+  Background - #FAFAFA
+  Popups - #FFFFFF
+
+  Primary (Blues)
+    Main - #2196f3
+    Dark - #0277bd
+
+  Secondary (Electric Lime)
+    Main - #EEFF41
+    Dark - #C6FF00
+
+  Tertiary (Red)
+    Main - #FF1744
+
+  Dark Text - #262626
+*/
+
+@import url(https://fonts.googleapis.com/css?family=Racing+Sans+One|Droid+Sans);
+
 html, body {
-  height: 100%; margin: 0; padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #FAFAFA;
 }
 
-#map {
-  height: 100%;
+/* Navigation Bar */
+
+.nav-bar {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 76px;
+  overflow: hidden;
+  background-color: #2196f3;
+  -webkit-box-shadow: 0px 3px 5px rgba(100, 100, 100, 0.49);
+  -moz-box-shadow:    0px 3px 5px rgba(100, 100, 100, 0.49);
+  box-shadow:         0px 3px 5px rgba(100, 100, 100, 0.49);
+}
+.nav-bar-detail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25px;
+  overflow: hidden;
+  background-color: #0277bd;
+  z-index: 100;
+}
+.nav-bar a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+.nav-header h1 {
+  font-family: 'Racing Sans One', cursive;
+  font-size: 50px;
+  color: #FFFFFF;
+  margin-top: -72px;
+  margin-left: 43%;
+  text-shadow: 2px 2px #0277bd;
+  position: absolute;
+  z-index: 101;
+}
+.nav-home li {
+  font-family: 'Racing Sans One', cursive;
+  font-size: 25px;
+  color: #FFFFFF;
+  line-height: 20px;
+  margin-top: 10px;
+  margin-left: -20px;
+  float: left;
+  list-style: none;
+}
+.nav-list li {
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 60px;
+  text-align: center;
+  color: #0277bd;
+  margin-top: -8px;
+  margin-right: 15px;
+  margin-left: 10px;
+  display: inline;
+  float: right;
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  background-color: #EEFF41;
+  -webkit-box-shadow: 0px 5px 5px rgba(100, 100, 100, 0.60);
+  -moz-box-shadow:    0px 5px 5px rgba(100, 100, 100, 0.60);
+  box-shadow:         0px 5px 5px rgba(100, 100, 100, 0.60);
+  /* Grow hover effect */
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.nav-list li:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+/* Google Maps */
+
+#map-main {
+  height: 50%;
+  width: 100%;
+  margin-top: 7%;
+  border-bottom: 15px solid #EEFF41;
+  -webkit-box-shadow: 0px 2px 5px rgba(100, 100, 100, 0.45);
+  -moz-box-shadow:    0px 2px 5px rgba(100, 100, 100, 0.45);
+  box-shadow:         0px 2px 5px rgba(100, 100, 100, 0.45);
+}
+
+/* Forms */
+.form-container {
+  display: none;
+  height: 500px;
+  width: 500px;
+  background-color: #FFFFFF;
+  float: left;
+  margin-left: 33%;
+  margin-top: -25%;
+  z-index: 100;
+  position: fixed;
+  -webkit-box-shadow: 0px 2px 40px rgba(100, 100, 100, 0.75);
+  -moz-box-shadow:    0px 2px 40px rgba(100, 100, 100, 0.75);
+  box-shadow:         0px 2px 40px rgba(100, 100, 100, 0.75);
 }
