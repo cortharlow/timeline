@@ -5,7 +5,7 @@ let user = require('../controllers/usersController')
 let expressJWT = require('express-jwt');
 const secret = "napcahmpc";
 
-router.route('/user')
+router.route('/')
   .all(expressJWT({
     secret: secret,
     userProperty: 'auth'
@@ -14,10 +14,10 @@ router.route('/user')
   .put(user.update)       //Protected
   .delete(user.destroy);  //Protected
 
-router.route('/user/auth')
+router.route('/auth')
   .post(user.auth);
 
-router.route('/user/signup')
+router.route('/signup')
   .post(user.create);
 
 module.exports = router;

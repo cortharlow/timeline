@@ -48,13 +48,13 @@ io.on('connection', function(client) {
 //
 });
 
-app.use('/', userRoutes);
+app.use('/users', userRoutes);
 // app.get('/moments', function(req, res){
 //   Moment.find(null, function(err, moments){
 //     io.emit('moment found', moments)
 //   })
 // })
-app.use('/', momentRoutes);
+app.use('/moments', momentRoutes);
 
 server.listen(3000, function() {
   let host = server.address().address;

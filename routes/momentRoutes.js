@@ -6,7 +6,7 @@ let moment = require('../controllers/momentsController');
 let expressJWT = require('express-jwt');
 const secret = "napcahmpc";
 
-router.route('/moment')
+router.route('/')
   // .all(expressJWT({
   //   secret: secret,
   //   userProperty: 'auth'
