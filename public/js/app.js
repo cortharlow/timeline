@@ -7,8 +7,10 @@
 window.onload = function() {
   let container = document.getElementsByClassName('form-container');
   let login = document.getElementsByClassName('form-login');
-  
-  container[0].style.display = "inline";
+
+  container[0].style.display = "inline"; //This is displaying the div immediately upon loading; need to set div to display: none and then change it when the Login and Sign divs are clicked; render the appropriate forms and inject either "Login" or "Signup" into the <h1> tag present in form-container
+
+  //Talke a look at my CSS Style Guide in case you need to create any divs
 }
 
 function error(error) {
