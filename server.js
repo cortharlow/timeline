@@ -9,6 +9,7 @@ let io = require('socket.io')(server);
 
 //Require routes
 let userRoutes = require('./routes/userRoutes');
+let momentRoutes = require('./routes/momentRoutes');
 
 
 app.use(logger('dev'));
@@ -53,6 +54,7 @@ app.use('/', userRoutes);
 //     io.emit('moment found', moments)
 //   })
 // })
+app.use('/', momentRoutes);
 
 server.listen(3000, function() {
   let host = server.address().address;
