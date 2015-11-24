@@ -21,9 +21,14 @@ userSchema.pre('save', function(next) {
       if (err) return next(err);
       user.password = hashedPassword;
       next();
-    })
-  })
-})
+    });
+  });
+});
 
-let User = mongoose.model('User', userSchema);
-module.exports = User;
+userSchema.methods.authenticate = function(password, callback) {
+  bcrypt.compare(password, this.password, function (err, isMatch) {
+    callback(null, isMatch);
+  });
+};
+
+module.exports = mongoose.model('User', userSchema);
