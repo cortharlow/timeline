@@ -8,10 +8,17 @@
 // document.onload(function(){
 //   navigator.geolocation.getCurrentPosition(reportPosition, error, geo_options);
 // });
-
+var socket;
+var token;
 window.onload = function() {
+  console.log('js loaded');
   socket = io();
+  console.log(socket);
   token = '';
+  socket.on('moment found', function(moment){
+    //when a new moment shows up through the socket, the following code is run.
+    renderMoment(moment);
+  });
   let navLogin = document.getElementsByClassName('nav-login');
   let navSignup = document.getElementsByClassName('nav-signup');
   let xOut = document.getElementsByClassName('x');
@@ -115,10 +122,7 @@ window.onload = function() {
   });
 }
 
-socket.on('moment found', function(moment){
-  //when a new moment shows up through the socket, the following code is run.
-  renderMoment(moment);
-});
+
 
 function renderMoment(moment) {
   let map = document.getElementById('map');
