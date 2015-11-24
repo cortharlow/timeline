@@ -175,6 +175,17 @@ html, body {
   -moz-box-shadow:    0px 2px 40px rgba(100, 100, 100, 0.75);
   box-shadow:         0px 2px 40px rgba(100, 100, 100, 0.75);
 }
+.form-container p {
+  display: inline;
+  float: right;
+  margin-right: 4%;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+.form-container p:hover {
+  cursor: pointer;
+}
 .form-container h1 {
   font-family: 'Racing Sans One', cursive;
   font-size: 40px;
@@ -188,7 +199,7 @@ html, body {
 }
 .form-container input {
   width: 200px;
-  height: 70px;
+  height: 55px;
   border: 0px solid white;
   border-bottom: 1px solid #64B5F6;
   background-color: #2196f3;
@@ -198,6 +209,7 @@ html, body {
 .form-container input[type='password'] {
   color: white;
   font-size: 20px;
+  margin-bottom: 20px;
 }
 .form-container ::-webkit-input-placeholder {
   font-size: 20px;
@@ -219,9 +231,18 @@ html, body {
   line-height: 20px;
   color: #64B5F6;
 }
+.form-container input[type='submit'] {
+  color: #2196f3;
+  background: white;
+  font-size: 20px;
+  display: block;
+  margin: 0 auto;
+}
 .form-signup {
   display: none;
+  clear: right;
 }
 .form-login {
   display: none;
+  clear: right;
 }

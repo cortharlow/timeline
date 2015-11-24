@@ -7,6 +7,7 @@
 window.onload = function() {
   let navLogin = document.getElementsByClassName('nav-login');
   let navSignup = document.getElementsByClassName('nav-signup');
+  let xOut = document.getElementsByClassName('x');
   let container = document.getElementsByClassName('form-container');
   let login = document.getElementsByClassName('form-login');
   let signup = document.getElementsByClassName('form-signup');
@@ -29,6 +30,12 @@ window.onload = function() {
     signup[0].style.display = "inline";
   });
 
+  xOut[0].addEventListener('click', function() {
+    container[0].style.display = "none";
+    login[0].style.display = "none";
+    signup[0].style.display = "none";
+  });
+
   // user login
   submitLogin[0].addEventListener('click', function(e) {
     e.preventDefault();
@@ -47,6 +54,8 @@ window.onload = function() {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
         container[0].style.display = "none";
         login[0].style.display = "none";
+        navLogin[0].innerHTML = "Logout";
+        navSignup[0].innerHTML = "Account";
       }
     };
     xhttp.open("POST", "http://localhost:3000/users/auth", true);
@@ -80,6 +89,8 @@ window.onload = function() {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
         container[0].style.display = "none";
         signup[0].style.display = "none";
+        navLogin.innerHTML = "Logout";
+        navSignup.innerHTML = "Account";
       }
     };
     xhttp.open("POST", "http://localhost:3000/users/signup", true);
