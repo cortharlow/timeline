@@ -1,11 +1,120 @@
 'use strict';
 
-document.onload(function(){
+// document.onload(function(){
+//
+//
+// });
+
+// document.onload(function(){
+//   navigator.geolocation.getCurrentPosition(reportPosition, error, geo_options);
+// });
+
+window.onload = function() {
   socket = io();
-  var token = '';
+  token = '';
+  let navLogin = document.getElementsByClassName('nav-login');
+  let navSignup = document.getElementsByClassName('nav-signup');
+  let xOut = document.getElementsByClassName('x');
+  let container = document.getElementsByClassName('form-container');
+  let login = document.getElementsByClassName('form-login');
+  let signup = document.getElementsByClassName('form-signup');
+  let submitLogin = document.getElementsByClassName('submit-login');
+  let submitSignup = document.getElementsByClassName('submit-signup');
+  let f_nameInput = document.getElementsByClassName('first-name');
+  let l_nameInput = document.getElementsByClassName('last-name');
+  let emailInput = document.getElementsByClassName('email');
+  let passwordInput = document.getElementsByClassName('password');
 
-});
+  navLogin[0].addEventListener('click', function() {
+    container[0].style.display = "inline";
+    signup[0].style.display = "none";
+    login[0].style.display = "inline";
+  });
 
+  navSignup[0].addEventListener('click', function() {
+    container[0].style.display = "inline";
+    login[0].style.display = "none";
+    signup[0].style.display = "inline";
+  });
+
+  xOut[0].addEventListener('click', function() {
+    container[0].style.display = "none";
+    login[0].style.display = "none";
+    signup[0].style.display = "none";
+  });
+
+  // user login
+  submitLogin[0].addEventListener('click', function(e) {
+    e.preventDefault();
+    // get login credentials
+    let email = emailInput[0].value;
+    let password = passwordInput[0].value;
+
+    let xhttp;
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+        } else {
+        // code for IE6, IE5
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        container[0].style.display = "none";
+        login[0].style.display = "none";
+        navLogin[0].innerHTML = "Logout";
+        navSignup[0].innerHTML = "Account";
+      }
+    };
+    xhttp.open("POST", "http://localhost:3000/users/auth", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    let data = JSON.stringify({
+      email: email,
+      password: password
+    });
+    xhttp.send(data);
+  });
+
+  // user signup
+  submitSignup[0].addEventListener('click', function(e) {
+    e.preventDefault();
+    // get new user parameters
+    let f_name = f_nameInput[0].value;
+    let l_name = l_nameInput[0].value;
+    let email = emailInput[1].value;
+    let password = passwordInput[1].value;
+    let created_at = Date.now;
+    let updated_at = Date.now;
+
+    let xhttp;
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+        } else {
+        // code for IE6, IE5
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        container[0].style.display = "none";
+        signup[0].style.display = "none";
+        navLogin.innerHTML = "Logout";
+        navSignup.innerHTML = "Account";
+      }
+    };
+    xhttp.open("POST", "http://localhost:3000/users/signup", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    let data = JSON.stringify({
+      f_name: f_name,
+      l_name: l_name,
+      email: email,
+      password: password,
+      created_at: created_at,
+      updated_at: updated_at
+    });
+    xhttp.send(data);
+  });
+}
+
+>>>>>>> develop
 socket.on('moment found', function(moment){
   //when a new moment shows up through the socket, the following code is run.
   renderMoment(moment);
@@ -27,6 +136,7 @@ function loginSucceeded(token){
 function error(error) {
   alert("Unable to retrieve your location due to "+error.code + " : " + error.message);
 };
+
 
 function reportPosition(position){
   socket.emit('current location',
