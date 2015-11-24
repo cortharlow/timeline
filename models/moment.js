@@ -36,6 +36,8 @@ momentSchema.pre('save', function(next) {
       next();
     }
   }
+  var err = new Error('Data structure must reflect Source type')
+  next(err);
 });
 
 let Moment = mongoose.model('Moment', momentSchema);
