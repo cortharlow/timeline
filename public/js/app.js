@@ -5,12 +5,106 @@
 // });
 
 window.onload = function() {
+  let navLogin = document.getElementsByClassName('nav-login');
+  let navSignup = document.getElementsByClassName('nav-signup');
+  let xOut = document.getElementsByClassName('x');
   let container = document.getElementsByClassName('form-container');
   let login = document.getElementsByClassName('form-login');
+  let signup = document.getElementsByClassName('form-signup');
+  let submitLogin = document.getElementsByClassName('submit-login');
+  let submitSignup = document.getElementsByClassName('submit-signup');
+  let f_nameInput = document.getElementsByClassName('first-name');
+  let l_nameInput = document.getElementsByClassName('last-name');
+  let emailInput = document.getElementsByClassName('email');
+  let passwordInput = document.getElementsByClassName('password');
 
-  container[0].style.display = "inline"; //This is displaying the div immediately upon loading; need to set div to display: none and then change it when the Login and Sign divs are clicked; render the appropriate forms and inject either "Login" or "Signup" into the <h1> tag present in form-container
+  navLogin[0].addEventListener('click', function() {
+    container[0].style.display = "inline";
+    signup[0].style.display = "none";
+    login[0].style.display = "inline";
+  });
 
-  //Talke a look at my CSS Style Guide in case you need to create any divs
+  navSignup[0].addEventListener('click', function() {
+    container[0].style.display = "inline";
+    login[0].style.display = "none";
+    signup[0].style.display = "inline";
+  });
+
+  xOut[0].addEventListener('click', function() {
+    container[0].style.display = "none";
+    login[0].style.display = "none";
+    signup[0].style.display = "none";
+  });
+
+  // user login
+  submitLogin[0].addEventListener('click', function(e) {
+    e.preventDefault();
+    // get login credentials
+    let email = emailInput[0].value;
+    let password = passwordInput[0].value;
+
+    let xhttp;
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+        } else {
+        // code for IE6, IE5
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        container[0].style.display = "none";
+        login[0].style.display = "none";
+        navLogin[0].innerHTML = "Logout";
+        navSignup[0].innerHTML = "Account";
+      }
+    };
+    xhttp.open("POST", "http://localhost:3000/users/auth", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    let data = JSON.stringify({
+      email: email,
+      password: password
+    });
+    xhttp.send(data);
+  });
+
+  // user signup
+  submitSignup[0].addEventListener('click', function(e) {
+    e.preventDefault();
+    // get new user parameters
+    let f_name = f_nameInput[0].value;
+    let l_name = l_nameInput[0].value;
+    let email = emailInput[1].value;
+    let password = passwordInput[1].value;
+    let created_at = Date.now;
+    let updated_at = Date.now;
+
+    let xhttp;
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+        } else {
+        // code for IE6, IE5
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        container[0].style.display = "none";
+        signup[0].style.display = "none";
+        navLogin.innerHTML = "Logout";
+        navSignup.innerHTML = "Account";
+      }
+    };
+    xhttp.open("POST", "http://localhost:3000/users/signup", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    let data = JSON.stringify({
+      f_name: f_name,
+      l_name: l_name,
+      email: email,
+      password: password,
+      created_at: created_at,
+      updated_at: updated_at
+    });
+    xhttp.send(data);
+  });
 }
 
 function error(error) {

@@ -144,6 +144,7 @@ html, body {
 .nav-list li:hover {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+  cursor: pointer;
 }
 
 /* Google Maps */
@@ -168,11 +169,22 @@ html, body {
   float: left;
   margin-left: 33%;
   margin-top: -25%;
-  z-index: 100;
+  z-index: 101;
   position: fixed;
   -webkit-box-shadow: 0px 2px 40px rgba(100, 100, 100, 0.75);
   -moz-box-shadow:    0px 2px 40px rgba(100, 100, 100, 0.75);
   box-shadow:         0px 2px 40px rgba(100, 100, 100, 0.75);
+}
+.form-container p {
+  display: inline;
+  float: right;
+  margin-right: 4%;
+  color: white;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+.form-container p:hover {
+  cursor: pointer;
 }
 .form-container h1 {
   font-family: 'Racing Sans One', cursive;
@@ -180,19 +192,24 @@ html, body {
   color: #FFFFFF;
   margin-left: 40%;
   text-shadow: 2px 2px #0277bd;
-  position: absolute;
   z-index: 101;
 }
 .form-container form {
-  margin-top: 40%;
+  /*margin-top: 10%;*/
 }
 .form-container input {
   width: 200px;
-  height: 100px;
+  height: 55px;
   border: 0px solid white;
   border-bottom: 1px solid #64B5F6;
   background-color: #2196f3;
-  margin-bottom: 10px;
+  margin-left: 20px;
+}
+.form-container input[type='text'],
+.form-container input[type='password'] {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 .form-container ::-webkit-input-placeholder {
   font-size: 20px;
@@ -213,4 +230,19 @@ html, body {
   font-size: 20px;
   line-height: 20px;
   color: #64B5F6;
+}
+.form-container input[type='submit'] {
+  color: #2196f3;
+  background: white;
+  font-size: 20px;
+  display: block;
+  margin: 0 auto;
+}
+.form-signup {
+  display: none;
+  clear: right;
+}
+.form-login {
+  display: none;
+  clear: right;
 }

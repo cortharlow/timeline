@@ -4,14 +4,13 @@ let User = require('../models/user');
 const secret = "napcahmpc";
 
 function create(req, res){
-  console.log(req.body.user);
-  let newUser = new User(req.body.user);
+  let newUser = new User(req.body);
 
   newUser.save((err) => {
     if (err){
       res.status(401).send(err);
     } else {
-    res.status(200).send(newUser)
+    res.status(200).send({token: jwt.sign(newUser, secret)})
     }
   })
 }
@@ -47,14 +46,12 @@ function destroy(req, res){
 }
 
 function auth(req, res){
-  let userParams = req.body.user;
-  console.log(req.body.user);
+  let userParams = req.body;
   if (userParams.email == undefined || userParams.password == undefined)
   return res.status(401).send({message: "Incorrect Login Information"});
 
   User.findOne({ email: userParams.email }, function(err, user) {
     if(err) throw err;
-    console.log(user);
     user.authenticate(userParams.password, function (err, isMatch) {
       if (err) throw err;
       if (isMatch) {
