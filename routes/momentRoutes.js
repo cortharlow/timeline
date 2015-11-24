@@ -7,17 +7,13 @@ let expressJWT = require('express-jwt');
 const secret = "napcahmpc";
 
 router.route('/')
-  // .all(expressJWT({
-  //   secret: secret,
-  //   userProperty: 'auth'
-  // }))
-  // .get(moment.fetch) //
-  // .fetch specific
+  .get(moment.fetch)
+  .all(expressJWT({
+    secret: secret,
+    userProperty: 'auth'
+  }))
+  .put(moment.update)
+  .delete(moment.destroy)
   .post(moment.create);
-  // .put(moment.update)
-  // .delete(moment.destroy);
 
 module.exports = router;
-
-
-//need to figure out how to limit some of this stuff to the specific user
