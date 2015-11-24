@@ -6,7 +6,7 @@ const secret = "napcahmpc";
 function create(req, res){
   let newUser = new User(req.body);
 
-  newUser.save((err) => {
+  newUser.save(function(err) {
     if (err){
       res.status(401).send(err);
     } else {

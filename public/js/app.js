@@ -1,6 +1,20 @@
 'use strict';
 
+// <<<<<<< HEAD
+// =======
+// // document.onload(function(){
+// //
+// //
+// // });
+//
+// // document.onload(function(){
+// //   navigator.geolocation.getCurrentPosition(reportPosition, error, geo_options);
+// // });
+//
+// >>>>>>> 053b36ec0abab87537b966f6aa3128074799e9f7
 window.onload = function() {
+  socket = io();
+  token = '';
   let navLogin = document.getElementsByClassName('nav-login');
   let navSignup = document.getElementsByClassName('nav-signup');
   let xOut = document.getElementsByClassName('x');
@@ -56,6 +70,7 @@ window.onload = function() {
     };
     xhttp.open("POST", "http://localhost:3000/users/auth", true);
     xhttp.setRequestHeader("Content-type", "application/json");
+    // xhttp.setRequestHeader("Authorization", "Bearer " + token);
     let data = JSON.stringify({
       email: email,
       password: password
@@ -103,12 +118,47 @@ window.onload = function() {
   });
 }
 
+socket.on('moment found', function(moment){
+  //when a new moment shows up through the socket, the following code is run.
+  renderMoment(moment);
+});
+
+function renderMoment(moment) {
+  let map = document.getElementById('map');
+  // if moment is a location
+  if (moment.type == 'location') {
+    dropPin(map, moment.data);
+    //render on the timeline - cort?
+  }
+}
+
+function loginSucceeded(token){
+  navigator.geolocation.getCurrentPosition(reportPosition, error, geo_options);
+}
+
 function error(error) {
   alert("Unable to retrieve your location due to "+error.code + " : " + error.message);
 };
 
-function reportPosition(position) {
-  socket.emit('current location', position);
+
+function reportPosition(position){
+  socket.emit('current location',
+  {
+    token: token,
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude
+  });
+}
+
+function dropPin(map, location){
+  let marker = new google.maps.Marker({
+    position: {lat: location.latitude, lng: location.longitude},
+    map: map,
+    animation: google.maps.Animation.DROP,
+    // label: 'H',
+    icon: 'http://www124.lunapic.com/do-not-link-here-use-hosting-instead/144823781631432?5066421535'
+  });
+  return marker;
 }
 
 function generateGoogleMap(position) {
@@ -123,6 +173,7 @@ function generateGoogleMap(position) {
       { gamma: 1.51 }
     ]}]
   });
+<<<<<<< HEAD
   let marker = new google.maps.Marker({
     position: {lat: position.coords.latitude, lng: position.coords.longitude},
     map: map,
@@ -130,7 +181,17 @@ function generateGoogleMap(position) {
     // label: 'H',
     //icon: 'http://www124.lunapic.com/do-not-link-here-use-hosting-instead/144823781631432?5066421535'
   });
+=======
+>>>>>>> 053b36ec0abab87537b966f6aa3128074799e9f7
 
+  // let marker = new google.maps.Marker({
+  //   position: {lat: position.coords.latitude, lng: position.coords.longitude},
+  //   map: map,
+  //   animation: google.maps.Animation.DROP,
+  //   // label: 'H',
+  //   icon: 'http://www124.lunapic.com/do-not-link-here-use-hosting-instead/144823781631432?5066421535'
+  // });
+  let marker = dropPin(map, {lat: position.coords.latitude, lng: position.coords.longitude});
   let geocoder = new google.maps.Geocoder;
   let infowindow = new google.maps.InfoWindow;
   geocoder.geocode({'location': {lat: position.coords.latitude, lng: position.coords.longitude}}, function(results, status) {
