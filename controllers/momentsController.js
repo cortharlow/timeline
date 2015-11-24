@@ -5,7 +5,8 @@ function create(req, res){
   let newMoment = new Moment(req.body.moment);
   newMoment.save(function(err) {
     if (err){
-      res.status(401).send(err);
+      console.log(err);
+      res.status(400).send(err);
     } else {
       res.status(200).send(newMoment)
     }
