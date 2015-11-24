@@ -2,7 +2,7 @@
 let mongoose = require('mongoose');
 
 let momentSchema = new mongoose.Schema({
-  // type: {type: String, required: true},
+  type: {type: String, required: true},
   data: {
     type: {},
     // required: true

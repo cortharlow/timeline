@@ -5,10 +5,50 @@
 // });
 
 window.onload = function() {
+  let navLogin = document.getElementsByClassName('nav-login');
+  let navSignup = document.getElementsByClassName('nav-signup');
   let container = document.getElementsByClassName('form-container');
   let login = document.getElementsByClassName('form-login');
+  let signup = document.getElementsByClassName('form-signup');
+  let submitLogin = document.getElementsByClassName('submit-login');
+  let submitSignup = document.getElementsByClassName('submit-signup');
+  let test = document.getElementsByClassName('test');
+  let name = document.getElementsByClassName('first-name')
 
-  container[0].style.display = "inline"; //This is displaying the div immediately upon loading; need to set div to display: none and then change it when the Login and Sign divs are clicked; render the appropriate forms and inject either "Login" or "Signup" into the <h1> tag present in form-container
+  navLogin[0].addEventListener('click', function() {
+    container[0].style.display = "inline";
+    signup[0].style.display = "none";
+    login[0].style.display = "inline";
+  });
+
+  navSignup[0].addEventListener('click', function() {
+    container[0].style.display = "inline";
+    login[0].style.display = "none";
+    signup[0].style.display = "inline";
+  });
+
+  document.addEventListener('click', test[0], function(e) {
+    e.preventDefault();
+    console.log("clicked");
+    let f_name        = name[0].value;
+    //  var picture     = $('#input-picture').val();
+    //  var nationality = $('#input-nationality').val();
+    //  var birthYear   = $('#input-birthYear').val();
+    //  var description = $('#input-description').val();
+    //  var created_at  = Date.now;
+    function callAjax(url, callback){
+    var xmlhttp;
+    // compatible with IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function(){
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+            callback(xmlhttp.responseText);
+        }
+    }
+    xmlhttp.open("POST", "http://localhost:3000/users/signup", true);
+    xmlhttp.send({f_name: f_name});
+    }
+  });
 
   //Talke a look at my CSS Style Guide in case you need to create any divs
 }

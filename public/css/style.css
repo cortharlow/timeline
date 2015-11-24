@@ -144,6 +144,7 @@ html, body {
 .nav-list li:hover {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+  cursor: pointer;
 }
 
 /* Google Maps */
@@ -180,15 +181,14 @@ html, body {
   color: #FFFFFF;
   margin-left: 40%;
   text-shadow: 2px 2px #0277bd;
-  position: absolute;
   z-index: 101;
 }
 .form-container form {
-  margin-top: 40%;
+  /*margin-top: 10%;*/
 }
 .form-container input {
   width: 200px;
-  height: 100px;
+  height: 50px;
   border: 0px solid white;
   border-bottom: 1px solid #64B5F6;
   background-color: #2196f3;
@@ -213,4 +213,10 @@ html, body {
   font-size: 20px;
   line-height: 20px;
   color: #64B5F6;
+}
+.form-signup {
+  display: none;
+}
+.form-login {
+  display: none;
 }

@@ -8,7 +8,7 @@
     <script src="/socket.io/socket.io.js" charset="utf-8"></script>
     <script src="./js/app.js"></script>
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWSZr3pN-jDnrYmKrnJZyk8KqA7Gtmz4o&callback=geoFindMe">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWSZr3pN-jDnrYmKrnJZyk8KqA7Gtmz4o">
     </script>
   </head>
   <body>
@@ -25,9 +25,9 @@
       </div>
       <div class="nav-list">
         <ul>
-          <li>Signup</li>
-          <li>Login</li>
-          <li>FAQ</li>
+          <li class="nav-signup">Signup</li>
+          <li class="nav-login">Login</li>
+          <li class="nav-faq">FAQ</li>
         </ul>
       </div>
     </div>
@@ -36,15 +36,24 @@
     <div class="timeline-container">
     </div>
     <div class="form-container">
-      <h1>Login</h1>
       <div class="form-login">
+        <h1>Login</h1>
         <form action="" method="">
           <input type="text" name="email" placeholder="Email"><br>
           <input type="text" name="password" placeholder="Password"><br>
+          <input type="submit" value="Submit" class="submit-login">
         </form>
       </div>
       <div class="form-signup">
-        <!-- Add form here, still need submit buttons -->
+        <h1>Signup</h1>
+        <form action="/users/signup" method="post">
+          <input class="first-name" type="text" name="first-name" placeholder="First Name"><br>
+          <input class="last-name" type="text" name="last-name" placeholder="Last Name"><br>
+          <input class="email" type="text" name="email" placeholder="Email"><br>
+          <input class="password" type="text" name="password" placeholder="Password"><br>
+          <!-- <input type="submit" value="Submit" class="submit-signup"> -->
+        </form>
+        <button class="test">Submit!</button>
       </div>
     </div>
   </body>
