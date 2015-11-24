@@ -3,7 +3,9 @@ let express = require('express');
 let logger = require('morgan');
 let path = require('path');
 let bodyParser = require('body-parser');
+var jwt = require('jsonwebtoken');
 let app = express();
+const secret = "napcahmpc";
 let server = require('http').createServer(app);
 let io = require('socket.io')(server);
 
@@ -18,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 let User = require('./models/user');
+let Moment = require('./models/moment');
 
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/timeline');
@@ -32,14 +35,23 @@ db.once('open', function (callback) {
 io.on('connection', function(client) {
   console.log('Client connected');
 
-//   client.on('current location', function(location){
-//     //save location to db under client name
-//     // User.findById(client.id, function(err, user) {
-//     //   if err throw err;
-//     //   user.events.push(location);
-//     //   user.save();
-//     // });
-//   });
+  client.on('current location', function(locationRequest){
+    // save location to db under client name
+    jwt.verify(locationRequest.token, secret, function(err, tokenDecode){
+      if (err) {
+        throw err;
+      } else {
+        newMoment = new Moment();
+        newMoment._userId = tokenDecode.user.id;
+        newMoment.source = 'location';
+        newMoment.data.latitude = locationRequest.latitude;
+        newMoment.data.longitude = locationRequest.longitude;
+        newMoment.save(function(err){
+          if(err) throw err;
+        });
+      }
+    });
+  });
 //   client.on('new moment', function(moment){
 //     //for adding a moment
 //     //save moment for user
@@ -49,11 +61,11 @@ io.on('connection', function(client) {
 });
 
 app.use('/users', userRoutes);
-// app.get('/moments', function(req, res){
-//   Moment.find(null, function(err, moments){
-//     io.emit('moment found', moments)
-//   })
-// })
+app.get('/moments', function(req, res){
+  Moment.find(null, function(err, moments){
+    io.emit('moment found', moments)
+  })
+})
 app.use('/moments', momentRoutes);
 
 server.listen(3000, function() {

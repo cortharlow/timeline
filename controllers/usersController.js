@@ -7,7 +7,7 @@ function create(req, res){
   console.log(req.body.user);
   let newUser = new User(req.body.user);
 
-  newUser.save((err) => {
+  newUser.save(function(err) {
     if (err){
       res.status(401).send(err);
     } else {

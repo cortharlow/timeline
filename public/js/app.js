@@ -1,51 +1,51 @@
 'use strict';
 
 document.onload(function(){
-  navigator.geolocation.getCurrentPosition(reportPosition, error, geo_options);
+  socket = io();
+  var token = '';
+
 });
 
-// <<<<<<< HEAD
-//   function success(position) {
-//     let map;
-//     map = new google.maps.Map(document.getElementById('map-main'), {
-//       center: {lat: position.coords.latitude, lng: position.coords.longitude},
-//       zoom: 15//,
-//       // styles: [{"stylers": [
-//       //   { hue: "#FF4081" },
-//       //   { saturation: -20 },
-//       //   { lightness: -20 },
-//       //   { gamma: 1.51 }
-//       // ]}]
-//     });
-//     let marker = new google.maps.Marker({
-//       position: {lat: position.coords.latitude, lng: position.coords.longitude},
-//       map: map,
-//       animation: google.maps.Animation.DROP,
-//       // label: 'H',
-//       // icon: 'http://www124.lunapic.com/do-not-link-here-use-hosting-instead/144823781631432?5066421535'
-//     });
-//
-//     let geocoder = new google.maps.Geocoder;
-//     let infowindow = new google.maps.InfoWindow;
-//     geocoder.geocode({'location': {lat: position.coords.latitude, lng: position.coords.longitude}}, function(results, status) {
-//       if (status === google.maps.GeocoderStatus.OK) {
-//         if (results[1]) {
-//           infowindow.setContent(results[1].formatted_address);
-//           infowindow.open(map, marker);
-//         } else {
-//           window.alert('No results found');
-//         }
-//       } else {
-//         window.alert('Geocoder failed due to: ' + status);
-//       }
-//     });
-// =======
+socket.on('moment found', function(moment){
+  //when a new moment shows up through the socket, the following code is run.
+  renderMoment(moment);
+});
+
+function renderMoment(moment) {
+  let map = document.getElementById('map');
+  // if moment is a location
+  if (moment.type == 'location') {
+    dropPin(map, moment.data);
+    //render on the timeline - cort?
+  }
+}
+
+function loginSucceeded(token){
+  navigator.geolocation.getCurrentPosition(reportPosition, error, geo_options);
+}
+
 function error(error) {
   alert("Unable to retrieve your location due to "+error.code + " : " + error.message);
 };
 
 function reportPosition(position){
-  socket.emit('current location', position);
+  socket.emit('current location',
+  {
+    token: token,
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude
+  });
+}
+
+function dropPin(map, location){
+  let marker = new google.maps.Marker({
+    position: {lat: location.latitude, lng: location.longitude},
+    map: map,
+    animation: google.maps.Animation.DROP,
+    // label: 'H',
+    icon: 'http://www124.lunapic.com/do-not-link-here-use-hosting-instead/144823781631432?5066421535'
+  });
+  return marker;
 }
 
 function generateGoogleMap(position) {
@@ -60,14 +60,15 @@ function generateGoogleMap(position) {
       { gamma: 1.51 }
     ]}]
   });
-  let marker = new google.maps.Marker({
-    position: {lat: position.coords.latitude, lng: position.coords.longitude},
-    map: map,
-    animation: google.maps.Animation.DROP,
-    // label: 'H',
-    icon: 'http://www124.lunapic.com/do-not-link-here-use-hosting-instead/144823781631432?5066421535'
-  });
 
+  // let marker = new google.maps.Marker({
+  //   position: {lat: position.coords.latitude, lng: position.coords.longitude},
+  //   map: map,
+  //   animation: google.maps.Animation.DROP,
+  //   // label: 'H',
+  //   icon: 'http://www124.lunapic.com/do-not-link-here-use-hosting-instead/144823781631432?5066421535'
+  // });
+  let marker = dropPin(map, {lat: position.coords.latitude, lng: position.coords.longitude});
   let geocoder = new google.maps.Geocoder;
   let infowindow = new google.maps.InfoWindow;
   geocoder.geocode({'location': {lat: position.coords.latitude, lng: position.coords.longitude}}, function(results, status) {
