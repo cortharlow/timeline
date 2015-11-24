@@ -12,8 +12,10 @@ window.onload = function() {
   let signup = document.getElementsByClassName('form-signup');
   let submitLogin = document.getElementsByClassName('submit-login');
   let submitSignup = document.getElementsByClassName('submit-signup');
-  let test = document.getElementsByClassName('test');
-  let name = document.getElementsByClassName('first-name')
+  let f_nameInput = document.getElementsByClassName('first-name');
+  let l_nameInput = document.getElementsByClassName('last-name');
+  let emailInput = document.getElementsByClassName('email');
+  let passwordInput = document.getElementsByClassName('password');
 
   navLogin[0].addEventListener('click', function() {
     container[0].style.display = "inline";
@@ -27,30 +29,71 @@ window.onload = function() {
     signup[0].style.display = "inline";
   });
 
-  document.addEventListener('click', test[0], function(e) {
+  // user login
+  submitLogin[0].addEventListener('click', function(e) {
     e.preventDefault();
-    console.log("clicked");
-    let f_name        = name[0].value;
-    //  var picture     = $('#input-picture').val();
-    //  var nationality = $('#input-nationality').val();
-    //  var birthYear   = $('#input-birthYear').val();
-    //  var description = $('#input-description').val();
-    //  var created_at  = Date.now;
-    function callAjax(url, callback){
-    var xmlhttp;
-    // compatible with IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function(){
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-            callback(xmlhttp.responseText);
-        }
+    // get login credentials
+    let email = emailInput[0].value;
+    let password = passwordInput[0].value;
+
+    let xhttp;
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+        } else {
+        // code for IE6, IE5
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlhttp.open("POST", "http://localhost:3000/users/signup", true);
-    xmlhttp.send({f_name: f_name});
-    }
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        container[0].style.display = "none";
+        login[0].style.display = "none";
+      }
+    };
+    xhttp.open("POST", "http://localhost:3000/users/auth", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    let data = JSON.stringify({
+      email: email,
+      password: password
+    });
+    xhttp.send(data);
   });
 
-  //Talke a look at my CSS Style Guide in case you need to create any divs
+  // user signup
+  submitSignup[0].addEventListener('click', function(e) {
+    e.preventDefault();
+    // get new user parameters
+    let f_name = f_nameInput[0].value;
+    let l_name = l_nameInput[0].value;
+    let email = emailInput[1].value;
+    let password = passwordInput[1].value;
+    let created_at = Date.now;
+    let updated_at = Date.now;
+
+    let xhttp;
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+        } else {
+        // code for IE6, IE5
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        container[0].style.display = "none";
+        signup[0].style.display = "none";
+      }
+    };
+    xhttp.open("POST", "http://localhost:3000/users/signup", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    let data = JSON.stringify({
+      f_name: f_name,
+      l_name: l_name,
+      email: email,
+      password: password,
+      created_at: created_at,
+      updated_at: updated_at
+    });
+    xhttp.send(data);
+  });
 }
 
 function error(error) {

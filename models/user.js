@@ -9,8 +9,8 @@ let userSchema = new mongoose.Schema({
   password: {type: String, required: true},
   home: Object,
   work: Object,
-  created_at: Date,
-  updated_at: Date
+  created_at: {type: Date, default: Date.now, required: true},
+  updated_at: {type: Date, default: Date.now, required: true}
 });
 
 userSchema.pre('save', function(next) {
