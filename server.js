@@ -48,6 +48,7 @@ io.on('connection', function(client) {
         newMoment.data.longitude = locationRequest.longitude;
         newMoment.save(function(err){
           if(err) throw err;
+          io.emit('moment found', newMoment);
         });
       }
     });
@@ -61,11 +62,11 @@ io.on('connection', function(client) {
 });
 
 app.use('/users', userRoutes);
-app.get('/moments', function(req, res){
-  Moment.find(null, function(err, moments){
-    io.emit('moment found', moments)
-  })
-})
+// app.get('/moments', function(req, res){
+//   Moment.find(null, function(err, moments){
+//     io.emit('moment found', moments)
+//   })
+// })
 app.use('/moments', momentRoutes);
 
 server.listen(3000, function() {

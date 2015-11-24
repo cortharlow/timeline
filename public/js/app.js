@@ -67,6 +67,7 @@ window.onload = function() {
     };
     xhttp.open("POST", "http://localhost:3000/users/auth", true);
     xhttp.setRequestHeader("Content-type", "application/json");
+    // xhttp.setRequestHeader("Authorization", "Bearer " + token);
     let data = JSON.stringify({
       email: email,
       password: password
@@ -114,7 +115,6 @@ window.onload = function() {
   });
 }
 
->>>>>>> develop
 socket.on('moment found', function(moment){
   //when a new moment shows up through the socket, the following code is run.
   renderMoment(moment);
