@@ -1,5 +1,5 @@
 'use strict';
-let jwt = ('jsonwebtoken');
+let jwt = require('jsonwebtoken');
 let User = require('../models/user');
 const secret = "napcahmpc";
 
@@ -53,6 +53,7 @@ function auth(req, res){
   return res.status(401).send({message: "Incorrect Login Information"});
 
   User.findOne({ email: userParams.email }, function(err, user) {
+    if(err) throw err;
     console.log(user);
     user.authenticate(userParams.password, function (err, isMatch) {
       if (err) throw err;
