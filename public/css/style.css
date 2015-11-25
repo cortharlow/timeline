@@ -29,7 +29,13 @@ TIMELINE LOCATION APP
 
 -------- Fonts --------
 Header --> font-family: 'Racing Sans One', cursive;
+              - Normal 400
 Text --> font-family: 'Droid Sans', sans-serif;
+              - Normal 400
+              - Bold 700
+Italics --> font-family: 'Open Sans', sans-serif;
+              - Light 300 Italic
+              - Normal 400 Italic
 
 -------- Colors --------
 Basic Theme (Light):
@@ -53,6 +59,7 @@ Basic Theme (Light):
 */
 
 @import url(https://fonts.googleapis.com/css?family=Racing+Sans+One|Droid+Sans);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic);
 
 html, body {
   height: 100%;
@@ -172,16 +179,40 @@ html, body {
 .timeline-date {
   height: 99%;
   width: 10%;
+  margin-left: 1%;
   display: inline-block;
   vertical-align: top;
 }
+.timeline-date h1 {
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 20px;
+  margin-bottom: 0;
+}
+.timeline-date h2 {
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+  margin-top: 1px;
+  margin-bottom: 0;
+}
+.timeline-date hr {
+  width: 98%;
+}
 .timeline-icon-wrap {
-  height: 60%;
+  height: 80%;
   width: 50%;
   background-color: #262626;
+  border-radius: 35px;
+  padding-top: 4%;
 }
 .timeline-icon {
-
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  margin-top: 4px;
+  border-radius: 20px;
+  background-color: #FF1744;
 }
 
 /* Forms */
@@ -270,11 +301,11 @@ html, body {
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-/*.form-container input[type='submit']:hover {
+.form-container input[type='submit']:hover {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
   cursor: pointer;
-}*/
+}
 .form-signup {
   display: none;
   clear: right;
