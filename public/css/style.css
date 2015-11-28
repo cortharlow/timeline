@@ -246,3 +246,10 @@ html, body {
   display: none;
   clear: right;
 }
+.error {
+  text-align: center;
+  margin: 5%;
+  color: white;
+  font-size: 30px;
+  font-family: sans-serif;
+}

@@ -46,7 +46,7 @@ window.onload = function() {
           // code for IE6, IE5
           xhttp = new ActiveXObject("Microsoft.XMLHTTP");
       }
-      xhttp.onreadystatechange = function(event) {
+      xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
           currentToken = null;
           currentUser = null;
@@ -113,6 +113,9 @@ window.onload = function() {
         navLogin[0].classList.toggle('nav-logout');
         navSignup[0].innerHTML = currentUser.f_name;
         navSignup[0].classList.toggle('nav-account');
+        errorMessage[0].innerHTML = '';
+        emailInput[0].value = '';
+        passwordInput[0].value = '';
         // createMoment();
         getUserMoments();
       }
