@@ -54,6 +54,8 @@ window.onload = function() {
           navLogin[0].classList.toggle('nav-logout');
           navLogin[0].innerHTML = "Login";
           navSignup[0].innerHTML = "Signup";
+          let position = geoFindMe();
+          generateGoogleMap(position);
         }
       };
       xhttp.open("GET", "http://localhost:3000/users/logout", true);
@@ -217,16 +219,48 @@ window.onload = function() {
             currentUserMoments.push(moment);
           }
         });
+        generateGoogleMapOfUserMoments();
       }
     };
     xhttp.open("GET", "http://localhost:3000/moments", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
   };
+
+  // SHOW USER MOMENTS ON MAP
+  let generateGoogleMapOfUserMoments = function() {
+    document.getElementById('map-main').innerHTML = '';
+    let map;
+    map = new google.maps.Map(document.getElementById('map-main'), {
+      center: {lat: currentLatitude, lng: currentLongitude},
+      zoom: 15,
+      styles: [{"stylers": [
+        //{ hue: "#00ffe6" },
+        { saturation: -20 },
+        { lightness: -20 },
+        { gamma: 1.51 }
+      ]}]
+    });
+    let markers = [];
+    currentUserMoments.forEach(function(moment) {
+      let marker = new google.maps.Marker({
+        position: {lat: moment.data.latitude, lng: moment.data.longitude},
+        map: map,
+        animation: google.maps.Animation.DROP
+      });
+      markers.push(marker);
+    });
+    let bounds = new google.maps.LatLngBounds();
+    let i;
+    for (i = 0; i < markers.length; i++) {
+      bounds.extend(markers[i].getPosition());
+    }
+    map.fitBounds(bounds);
+  }
 }
 
 function error(error) {
-  alert("Unable to retrieve your location due to "+error.code + " : " + error.message);
+  alert("Unable to retrieve your location due to " + error.code + " : " + error.message);
 };
 
 function reportPosition(position) {
@@ -278,5 +312,5 @@ function geoFindMe(){
   navigator.geolocation.getCurrentPosition(generateGoogleMap, error, geo_options);
 }
 
-var position = geoFindMe();
+let position = geoFindMe();
 generateGoogleMap(position);

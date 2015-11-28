@@ -47,7 +47,6 @@ function destroy(req, res){
 
 function auth(req, res){
   let userParams = req.body;
-  console.log(userParams.email);
   if (userParams.email == undefined || userParams.password == undefined) {
     return res.status(401).send({message: "Incorrect Login Information"});
   }
