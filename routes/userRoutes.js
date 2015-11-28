@@ -20,4 +20,7 @@ router.route('/auth')
 router.route('/signup')
   .post(user.create);
 
+router.route("/logout")
+  .get(user.logout);
+
 module.exports = router;

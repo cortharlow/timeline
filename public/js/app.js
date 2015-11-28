@@ -1,10 +1,27 @@
 'use strict';
-
+let currentToken;
+let currentUser;
+let currentLatitude;
+let currentLongitude;
+let currentUserMoments = [];
 // document.onload(function(){
 //   navigator.geolocation.getCurrentPosition(reportPosition, error, geo_options);
 // });
 
 window.onload = function() {
+  // GET LOCATION function
+  let getLocation = function() {
+    let success = function(pos) {
+      currentLatitude = pos.coords.latitude;
+      currentLongitude = pos.coords.longitude;
+    }
+    navigator.geolocation.getCurrentPosition(success);
+  };
+  getLocation();
+  if (currentToken) {
+    createMoment();
+  };
+
   let navLogin = document.getElementsByClassName('nav-login');
   let navSignup = document.getElementsByClassName('nav-signup');
   let xOut = document.getElementsByClassName('x');
@@ -17,26 +34,59 @@ window.onload = function() {
   let l_nameInput = document.getElementsByClassName('last-name');
   let emailInput = document.getElementsByClassName('email');
   let passwordInput = document.getElementsByClassName('password');
+  let errorMessage = document.getElementsByClassName('error');
 
+  // SHOW LOGIN FORM OR LOGOUT
   navLogin[0].addEventListener('click', function() {
-    container[0].style.display = "inline";
-    signup[0].style.display = "none";
-    login[0].style.display = "inline";
+    if (this.classList.contains('nav-logout')) {
+      let xhttp;
+      if (window.XMLHttpRequest) {
+          xhttp = new XMLHttpRequest();
+          } else {
+          // code for IE6, IE5
+          xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xhttp.onreadystatechange = function(event) {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+          currentToken = null;
+          currentUser = null;
+          currentUserMoments = [];
+          navLogin[0].classList.toggle('nav-logout');
+          navLogin[0].innerHTML = "Login";
+          navSignup[0].innerHTML = "Signup";
+        }
+      };
+      xhttp.open("GET", "http://localhost:3000/users/logout", true);
+      xhttp.setRequestHeader("token", currentToken);
+      xhttp.send();
+
+    } else {
+      container[0].style.display = "inline";
+      signup[0].style.display = "none";
+      login[0].style.display = "inline";
+    }
   });
 
+  // SHOW SIGN UP FORM OR SHOW USER PAGE
   navSignup[0].addEventListener('click', function() {
+    if (this.classList.contains('nav-account')) {
+      console.log('needs to go to the user page'); // need to route to the user page
+      navSignup[0].classList.toggle('nav-account');
+    } else {
     container[0].style.display = "inline";
     login[0].style.display = "none";
     signup[0].style.display = "inline";
+    }
   });
 
+  // EXIT OUT OF FORM
   xOut[0].addEventListener('click', function() {
     container[0].style.display = "none";
     login[0].style.display = "none";
     signup[0].style.display = "none";
   });
 
-  // user login
+  // USER LOGIN
   submitLogin[0].addEventListener('click', function(e) {
     e.preventDefault();
     // get login credentials
@@ -50,12 +100,21 @@ window.onload = function() {
         // code for IE6, IE5
         xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function(event) {
+      if (xhttp.status == 401) {
+        errorMessage[0].innerHTML = 'Error: Invalid Credentials';
+      }
       if (xhttp.readyState == 4 && xhttp.status == 200) {
+        currentToken = (JSON.parse(event.currentTarget.response)).token;
+        currentUser = (JSON.parse(event.currentTarget.response)).currentUser;
         container[0].style.display = "none";
         login[0].style.display = "none";
         navLogin[0].innerHTML = "Logout";
-        navSignup[0].innerHTML = "Account";
+        navLogin[0].classList.toggle('nav-logout');
+        navSignup[0].innerHTML = currentUser.f_name;
+        navSignup[0].classList.toggle('nav-account');
+        // createMoment();
+        getUserMoments();
       }
     };
     xhttp.open("POST", "http://localhost:3000/users/auth", true);
@@ -67,7 +126,7 @@ window.onload = function() {
     xhttp.send(data);
   });
 
-  // user signup
+  // USER SIGNUP
   submitSignup[0].addEventListener('click', function(e) {
     e.preventDefault();
     // get new user parameters
@@ -90,7 +149,10 @@ window.onload = function() {
         container[0].style.display = "none";
         signup[0].style.display = "none";
         navLogin.innerHTML = "Logout";
+        navLogin[0].classList.toggle('nav-logout');
         navSignup.innerHTML = "Account";
+        navSignup[0].classList.toggle('nav-account');
+        createMoment();
       }
     };
     xhttp.open("POST", "http://localhost:3000/users/signup", true);
@@ -105,6 +167,59 @@ window.onload = function() {
     });
     xhttp.send(data);
   });
+
+  // CREATE MOMENT function
+  let createMoment = function() {
+    let xhttp;
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+        } else {
+        // code for IE6, IE5
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhttp.onreadystatechange = function(event) {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+      }
+    };
+    xhttp.open("POST", "http://localhost:3000/moments", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    let data = JSON.stringify({
+      _userId: currentUser._id,
+      source: "location",
+      data: {
+        latitude: currentLatitude,
+        longitude: currentLongitude
+      },
+      created_at: Date.now,
+      updated_at: Date.now
+    });
+    xhttp.send(data);
+  };
+
+  // GET MOMENTS (set user's moments)
+  let getUserMoments = function() {
+    let xhttp;
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+        } else {
+        // code for IE6, IE5
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhttp.onreadystatechange = function(event) {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        let allMoments = JSON.parse(event.currentTarget.response);
+        allMoments.forEach(function(moment) {
+          if (moment._userId === currentUser._id) {
+            currentUserMoments.push(moment);
+          }
+        });
+      }
+    };
+    xhttp.open("GET", "http://localhost:3000/moments", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+  };
 }
 
 function error(error) {

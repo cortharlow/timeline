@@ -55,7 +55,7 @@ function auth(req, res){
     user.authenticate(userParams.password, function (err, isMatch) {
       if (err) throw err;
       if (isMatch) {
-        return res.status(200).send({message: "Valid Credentials", token: jwt.sign(user, secret)});
+        return res.status(200).send({message: "Valid Credentials", token: jwt.sign(user, secret), currentUser: user});
       } else {
         return res.status(401).send({message: "Invalid Credentials"});
       }
@@ -63,10 +63,25 @@ function auth(req, res){
   });
 }
 
+function logout(req, res) {
+  console.log(req.headers.token);
+  // res.status(200).send();
+  // console.log(user.token);
+  // if (utils.expire(req.headers)) {
+  //   delete req.user;
+  //   return res.status(200).json({
+  //       "message": "User has been successfully logged out"
+  //   });
+  // } else {
+  //   return new UnauthorizedAccessError("401");
+  // }
+}
+
 module.exports = {
   create: create,
   fetch: fetch,
   update: update,
   destroy: destroy,
-  auth: auth
+  auth: auth,
+  logout: logout
 }
