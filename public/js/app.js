@@ -10,15 +10,16 @@
 // });
 var socket;
 var token;
+socket = io();
+token = '';
+console.log(socket);
+socket.on('moment found', function(moment){
+  //when a new moment shows up through the socket, the following code is run.
+  renderMoment(moment);
+});
+console.log('js loaded 1');
 window.onload = function() {
-  console.log('js loaded');
-  socket = io();
-  console.log(socket);
-  token = '';
-  socket.on('moment found', function(moment){
-    //when a new moment shows up through the socket, the following code is run.
-    renderMoment(moment);
-  });
+  console.log('js loaded2');
   let navLogin = document.getElementsByClassName('nav-login');
   let navSignup = document.getElementsByClassName('nav-signup');
   let xOut = document.getElementsByClassName('x');
@@ -59,10 +60,10 @@ window.onload = function() {
 
     let xhttp;
     if (window.XMLHttpRequest) {
-        xhttp = new XMLHttpRequest();
-        } else {
+      xhttp = new XMLHttpRequest();
+    } else {
         // code for IE6, IE5
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -74,7 +75,7 @@ window.onload = function() {
     };
     xhttp.open("POST", "http://localhost:3000/users/auth", true);
     xhttp.setRequestHeader("Content-type", "application/json");
-    // xhttp.setRequestHeader("Authorization", "Bearer " + token);
+    xhttp.setRequestHeader("Authorization", "Bearer " + token);
     let data = JSON.stringify({
       email: email,
       password: password
@@ -120,7 +121,7 @@ window.onload = function() {
     });
     xhttp.send(data);
   });
-}
+};
 
 
 
@@ -163,8 +164,7 @@ function dropPin(map, location){
 }
 
 function generateGoogleMap(position) {
-  let map;
-  map = new google.maps.Map(document.getElementById('map'), {
+  let map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: position.coords.latitude, lng: position.coords.longitude},
     zoom: 15,
     styles: [{"stylers": [
@@ -207,3 +207,7 @@ function geoFindMe(){
   };
   navigator.geolocation.getCurrentPosition(generateGoogleMap, error, geo_options);
 }
+
+// var position = geoFindMe();
+// generateGoogleMap(position);
+// }

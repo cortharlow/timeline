@@ -46,20 +46,30 @@ function destroy(req, res){
 }
 
 function auth(req, res){
-  let userParams = req.body;
+  var userParams = req.body;
+  console.log(userParams);
   if (userParams.email == undefined || userParams.password == undefined)
   return res.status(401).send({message: "Incorrect Login Information"});
 
-  User.findOne({ email: userParams.email }, function(err, user) {
-    if(err) throw err;
-    user.authenticate(userParams.password, function (err, isMatch) {
-      if (err) throw err;
-      if (isMatch) {
-        return res.status(200).send({message: "Valid Credentials", token: jwt.sign(user, secret)});
-      } else {
-        return res.status(401).send({message: "Invalid Credentials"});
-      }
-    });
+  User.findOne({ "email": userParams.email }, function(err, user) {
+    // debugger;
+    if(err) {
+      throw err;
+    }
+    console.log(user);
+    if (user)
+    {
+      user.authenticate(userParams.password, function (err, isMatch) {
+        if (err) throw err;
+        if (isMatch) {
+          return res.status(200).send({message: "Valid Credentials", token: jwt.sign(user, secret)});
+        } else {
+          return res.status(401).send({message: "Invalid Credentials"});
+        }
+      });
+    } else {
+      return res.status(401).send({message: "User is null"});
+    }
   });
 }
 
