@@ -1,5 +1,6 @@
 'use strict';
 
+// <<<<<<< HEAD
 // document.onload(function(){
 //
 //
@@ -18,6 +19,8 @@ socket.on('moment found', function(moment){
   renderMoment(moment);
 });
 console.log('js loaded 1');
+// =======
+// >>>>>>> harlow
 window.onload = function() {
   console.log('js loaded2');
   let navLogin = document.getElementsByClassName('nav-login');
@@ -165,25 +168,29 @@ function dropPin(map, location){
 }
 
 function generateGoogleMap(position) {
-  let map = new google.maps.Map(document.getElementById('map'), {
+
+  let map;
+  map = new google.maps.Map(document.getElementById('map-main'), {
+
     center: {lat: position.coords.latitude, lng: position.coords.longitude},
     zoom: 15,
     styles: [{"stylers": [
-      { hue: "#00ffe6" },
+      //{ hue: "#00ffe6" },
       { saturation: -20 },
       { lightness: -20 },
       { gamma: 1.51 }
     ]}]
   });
 
-  // let marker = new google.maps.Marker({
-  //   position: {lat: position.coords.latitude, lng: position.coords.longitude},
-  //   map: map,
-  //   animation: google.maps.Animation.DROP,
-  //   // label: 'H',
-  //   icon: 'http://www124.lunapic.com/do-not-link-here-use-hosting-instead/144823781631432?5066421535'
-  // });
-  let marker = dropPin(map, {lat: position.coords.latitude, lng: position.coords.longitude});
+
+  let marker = new google.maps.Marker({
+    position: {lat: position.coords.latitude, lng: position.coords.longitude},
+    map: map,
+    animation: google.maps.Animation.DROP,
+    // label: 'H',
+    // icon: 'http://www124.lunapic.com/do-not-link-here-use-hosting-instead/144823781631432?5066421535'
+  });
+  // let marker = dropPin(map, {lat: position.coords.latitude, lng: position.coords.longitude});
   let geocoder = new google.maps.Geocoder;
   let infowindow = new google.maps.InfoWindow;
   geocoder.geocode({'location': {lat: position.coords.latitude, lng: position.coords.longitude}}, function(results, status) {
@@ -209,6 +216,6 @@ function geoFindMe(){
   navigator.geolocation.getCurrentPosition(generateGoogleMap, error, geo_options);
 }
 
-// var position = geoFindMe();
-// generateGoogleMap(position);
-// }
+
+var position = geoFindMe();
+generateGoogleMap(position);
