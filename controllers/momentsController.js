@@ -2,7 +2,7 @@
 let Moment = require('../models/moment');
 
 function create(req, res){
-  let newMoment = new Moment(req.body.moment);
+  let newMoment = new Moment(req.body);
   newMoment.save(function(err) {
     if (err){
       console.log(err);
