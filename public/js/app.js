@@ -121,7 +121,7 @@ window.onload = function() {
     });
     xhttp.send(data);
   });
-};
+
 
 
 
@@ -137,6 +137,7 @@ function renderMoment(moment) {
 function loginSucceeded(token){
   navigator.geolocation.getCurrentPosition(reportPosition, error, geo_options);
 }
+
 
 function error(error) {
   alert("Unable to retrieve your location due to "+error.code + " : " + error.message);
