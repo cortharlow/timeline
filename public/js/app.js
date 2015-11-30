@@ -71,6 +71,7 @@ window.onload = function() {
           navLogin[0].classList.toggle('nav-logout');
           navLogin[0].innerHTML = "Login";
           navSignup[0].innerHTML = "Signup";
+          navHeader[0].innerHTML = "<h1>Timeline</h1>";
           let position = geoFindMe();
           generateGoogleMap(position);
         }
