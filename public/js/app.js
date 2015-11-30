@@ -22,8 +22,6 @@ window.onload = function() {
     timelineDate[i].innerHTML = someFormattedDate;
   }
 
-
-
   // GET LOCATION function
   let getLocation = function() {
     let success = function(pos) {
@@ -134,7 +132,7 @@ window.onload = function() {
         navSignup[0].innerHTML = currentUser.f_name;
         navSignup[0].classList.toggle('nav-account');
         navHeader[0].innerHTML = "<h1>" + currentUser.f_name + "'s Timeline</h1>";
-        navHeader[0].style = "margin-left: 41%";
+        navHeader[0].getElementsByTagName('h1')[0].style.marginLeft = "37%";
         errorMessage[0].innerHTML = '';
         emailInput[0].value = '';
         passwordInput[0].value = '';
