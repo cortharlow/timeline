@@ -129,14 +129,14 @@ window.onload = function() {
         login[0].style.display = "none";
         navLogin[0].innerHTML = "Logout";
         navLogin[0].classList.toggle('nav-logout');
-        navSignup[0].innerHTML = currentUser.f_name;
+        navSignup[0].innerHTML = "Account";
         navSignup[0].classList.toggle('nav-account');
         navHeader[0].innerHTML = "<h1>" + currentUser.f_name + "'s Timeline</h1>";
         navHeader[0].getElementsByTagName('h1')[0].style.marginLeft = "37%";
         errorMessage[0].innerHTML = '';
         emailInput[0].value = '';
         passwordInput[0].value = '';
-        // createMoment();
+        createMoment();
         getUserMoments();
       }
     };
@@ -169,13 +169,18 @@ window.onload = function() {
     }
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
+        navLogin[0].innerHTML = "Logout";
+        navLogin[0].classList.toggle('nav-logout');
+        navSignup[0].innerHTML = "Account";
+        navSignup[0].classList.toggle('nav-account');
+        currentToken = (JSON.parse(event.currentTarget.response)).token;
+        currentUser = (JSON.parse(event.currentTarget.response)).currentUser;
+        navHeader[0].innerHTML = "<h1>" + currentUser.f_name + "'s Timeline</h1>";
+        navHeader[0].getElementsByTagName('h1')[0].style.marginLeft = "37%";
         container[0].style.display = "none";
         signup[0].style.display = "none";
-        navLogin.innerHTML = "Logout";
-        navLogin[0].classList.toggle('nav-logout');
-        navSignup.innerHTML = "Account";
-        navSignup[0].classList.toggle('nav-account');
         createMoment();
+        getUserMoments();
       }
     };
     xhttp.open("POST", "http://localhost:3000/users/signup", true);
