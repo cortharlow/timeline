@@ -30,6 +30,19 @@ console.log('js loaded 1');
 // =======
 // >>>>>>> harlow
 window.onload = function() {
+
+  // SET DATES function
+  let timelineDate = document.getElementsByTagName('h1');
+  var dateAfterToday = new Date();
+  for (var i = 4; i < timelineDate.length; i++) {
+    dateAfterToday.setDate(dateAfterToday.getDate() - 1);
+    var dd = dateAfterToday.getDate();
+    var mm = dateAfterToday.getMonth() + 1;
+    var y = dateAfterToday.getFullYear();
+    var someFormattedDate = dd + '/'+ mm + '/'+ y;
+    timelineDate[i].innerHTML = someFormattedDate;
+  }
+
   // GET LOCATION function
   let getLocation = function() {
     let success = function(pos) {
@@ -45,6 +58,8 @@ window.onload = function() {
 
   let navLogin = document.getElementsByClassName('nav-login');
   let navSignup = document.getElementsByClassName('nav-signup');
+  let navHome = document.getElementsByClassName('nav-home-link');
+  let navHeader = document.getElementsByClassName('nav-header');
   let xOut = document.getElementsByClassName('x');
   let container = document.getElementsByClassName('form-container');
   let login = document.getElementsByClassName('form-login');
@@ -75,6 +90,7 @@ window.onload = function() {
           navLogin[0].classList.toggle('nav-logout');
           navLogin[0].innerHTML = "Login";
           navSignup[0].innerHTML = "Signup";
+          navHeader[0].innerHTML = "<h1>Timeline</h1>";
           let position = geoFindMe();
           generateGoogleMap(position);
         }
@@ -136,6 +152,8 @@ window.onload = function() {
         navLogin[0].classList.toggle('nav-logout');
         navSignup[0].innerHTML = currentUser.f_name;
         navSignup[0].classList.toggle('nav-account');
+        navHeader[0].innerHTML = "<h1>" + currentUser.f_name + "'s Timeline</h1>";
+        navHeader[0].getElementsByTagName('h1')[0].style.marginLeft = "37%";
         errorMessage[0].innerHTML = '';
         emailInput[0].value = '';
         passwordInput[0].value = '';
