@@ -79,7 +79,7 @@ window.onload = function() {
           generateGoogleMap(position);
         }
       };
-      xhttp.open("GET", "http://localhost:3000/users/logout", true);
+      xhttp.open("GET", "http://162.243.3.111:3000/users/logout", true);
       xhttp.setRequestHeader("token", currentToken);
       xhttp.send();
 
@@ -143,7 +143,7 @@ window.onload = function() {
         getUserMoments();
       }
     };
-    xhttp.open("POST", "http://localhost:3000/users/auth", true);
+    xhttp.open("POST", "http://162.243.3.111:3000/users/auth", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.setRequestHeader("Authorization", "Bearer " + token);
     let data = JSON.stringify({
@@ -182,7 +182,7 @@ window.onload = function() {
         createMoment();
       }
     };
-    xhttp.open("POST", "http://localhost:3000/users/signup", true);
+    xhttp.open("POST", "http://162.243.3.111:3000/users/signup", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     let data = JSON.stringify({
       f_name: f_name,
@@ -226,7 +226,7 @@ function createMoment() {
 
     }
   };
-  xhttp.open("POST", "http://localhost:3000/moments", true);
+  xhttp.open("POST", "http://162.243.3.111:3000/moments", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   let data = JSON.stringify({
     _userId: currentUser._id,
@@ -261,7 +261,7 @@ function getUserMoments() {
       generateGoogleMapOfUserMoments();
     }
   };
-  xhttp.open("GET", "http://localhost:3000/moments", true);
+  xhttp.open("GET", "http://162.243.3.111:3000/moments", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send();
 };
