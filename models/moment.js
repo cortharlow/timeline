@@ -20,8 +20,8 @@ let momentSchema = new mongoose.Schema({
   data: {
     type: mongoose.Schema.Types.Mixed
   },
-  created_at: Date,
-  updated_at: Date,
+  created_at: {type: Date, default: Date.now, required: true},
+  updated_at: {type: Date, default: Date.now, required: true},
 });
 
 momentSchema.pre('save', function(next) {

@@ -46,31 +46,39 @@ function destroy(req, res){
 }
 
 function auth(req, res){
-  var userParams = req.body;
-  console.log(userParams);
-  if (userParams.email == undefined || userParams.password == undefined)
-  return res.status(401).send({message: "Incorrect Login Information"});
-
-  User.findOne({ "email": userParams.email }, function(err, user) {
-    // debugger;
-    if(err) {
-      throw err;
-    }
-    console.log(user);
-    if (user)
-    {
+  let userParams = req.body;
+  if (userParams.email == undefined || userParams.password == undefined) {
+    return res.status(401).send({message: "Incorrect Login Information"});
+  }
+  User.findOne({ email: userParams.email }, function(err, user) {
+    if (user == null) {
+      return res.status(401).send({message: "Invalid Credentials"});
+    } else {
       user.authenticate(userParams.password, function (err, isMatch) {
         if (err) throw err;
         if (isMatch) {
-          return res.status(200).send({message: "Valid Credentials", token: jwt.sign(user, secret)});
+          return res.status(200).send({message: "Valid Credentials", token: jwt.sign(user, secret), currentUser: user});
         } else {
           return res.status(401).send({message: "Invalid Credentials"});
         }
       });
-    } else {
-      return res.status(401).send({message: "User is null"});
     }
   });
+}
+
+function logout(req, res) {
+  console.log(req.headers.token);
+  res.status(200).send();
+  // res.status(200).send();
+  // console.log(user.token);
+  // if (utils.expire(req.headers)) {
+  //   delete req.user;
+  //   return res.status(200).json({
+  //       "message": "User has been successfully logged out"
+  //   });
+  // } else {
+  //   return new UnauthorizedAccessError("401");
+  // }
 }
 
 module.exports = {
@@ -78,5 +86,6 @@ module.exports = {
   fetch: fetch,
   update: update,
   destroy: destroy,
-  auth: auth
+  auth: auth,
+  logout: logout
 }

@@ -8,10 +8,10 @@ const secret = "napcahmpc";
 
 router.route('/')
   .get(moment.fetch)
-  .all(expressJWT({
-    secret: secret,
-    userProperty: 'auth'
-  }))
+  // .all(expressJWT({
+  //   secret: secret,
+  //   userProperty: 'auth'
+  // }))
   .put(moment.update)
   .delete(moment.destroy)
   .post(moment.create);
