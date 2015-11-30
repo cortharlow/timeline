@@ -213,7 +213,7 @@ function loginSucceeded(token){
 
 
 // CREATE MOMENT function
-let createMoment = function() {
+function createMoment() {
   let xhttp;
   if (window.XMLHttpRequest) {
       xhttp = new XMLHttpRequest();
@@ -242,7 +242,7 @@ let createMoment = function() {
 };
 
 // GET MOMENTS (set user's moments)
-let getUserMoments = function() {
+function getUserMoments() {
   let xhttp;
   if (window.XMLHttpRequest) {
       xhttp = new XMLHttpRequest();
@@ -266,8 +266,9 @@ let getUserMoments = function() {
   xhttp.send();
 };
 
+
 // SHOW USER MOMENTS ON MAP
-let generateGoogleMapOfUserMoments = function() {
+function generateGoogleMapOfUserMoments() {
   document.getElementById('map-main').innerHTML = '';
   let map;
   map = new google.maps.Map(document.getElementById('map-main'), {
