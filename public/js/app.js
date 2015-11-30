@@ -157,7 +157,7 @@ window.onload = function() {
         errorMessage[0].innerHTML = '';
         emailInput[0].value = '';
         passwordInput[0].value = '';
-        // createMoment();
+        createMoment();
         getUserMoments();
       }
     };
