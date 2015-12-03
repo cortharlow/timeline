@@ -29,13 +29,7 @@ TIMELINE LOCATION APP
 
 -------- Fonts --------
 Header --> font-family: 'Racing Sans One', cursive;
-              - Normal 400
 Text --> font-family: 'Droid Sans', sans-serif;
-              - Normal 400
-              - Bold 700
-Italics --> font-family: 'Open Sans', sans-serif;
-              - Light 300 Italic
-              - Normal 400 Italic
 
 -------- Colors --------
 Basic Theme (Light):
@@ -59,7 +53,6 @@ Basic Theme (Light):
 */
 
 @import url(https://fonts.googleapis.com/css?family=Racing+Sans+One|Droid+Sans);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic);
 
 html, body {
   height: 100%;
@@ -166,59 +159,9 @@ html, body {
   box-shadow:         0px 2px 5px rgba(100, 100, 100, 0.45);
 }
 
-/* Timeline */
-
-.timeline-container {
-  height: 50%;
-  width: 100%;
-  overflow-x: scroll;
-  display: inline-block;
-  border-bottom: 10px solid #2196f3;
-  white-space: nowrap;
-}
-.timeline-date {
-  height: 99%;
-  width: 10%;
-  margin-left: 1%;
-  display: inline-block;
-  vertical-align: top;
-}
-.timeline-date h1 {
-  font-family: 'Droid Sans', sans-serif;
-  font-size: 20px;
-  margin-bottom: 0;
-}
-.timeline-date h2 {
-  font-family: 'Droid Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 300;
-  font-style: italic;
-  margin-top: 1px;
-  margin-bottom: 0;
-}
-.timeline-date hr {
-  width: 98%;
-}
-.timeline-icon-wrap {
-  height: 80%;
-  width: 50%;
-  background-color: #262626;
-  border-radius: 35px;
-  padding-top: 4%;
-}
-.timeline-icon {
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
-  margin-top: 4px;
-  border-radius: 20px;
-  background-color: #FF1744;
-}
-
 /* Forms */
 
 .form-container {
-  text-align: center;
   display: none;
   height: 500px;
   width: 500px;
@@ -247,8 +190,12 @@ html, body {
   font-family: 'Racing Sans One', cursive;
   font-size: 40px;
   color: #FFFFFF;
+  margin-left: 40%;
   text-shadow: 2px 2px #0277bd;
   z-index: 101;
+}
+.form-container form {
+  /*margin-top: 10%;*/
 }
 .form-container input {
   width: 200px;
@@ -256,6 +203,7 @@ html, body {
   border: 0px solid white;
   border-bottom: 1px solid #64B5F6;
   background-color: #2196f3;
+  margin-left: 20px;
 }
 .form-container input[type='text'],
 .form-container input[type='password'] {
@@ -289,22 +237,6 @@ html, body {
   font-size: 20px;
   display: block;
   margin: 0 auto;
-  /* Grow hover effect */
-  vertical-align: middle;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: transform;
-  transition-property: transform;
-}
-.form-container input[type='submit']:hover {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-  cursor: pointer;
 }
 .form-signup {
   display: none;

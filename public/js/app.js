@@ -118,7 +118,7 @@ window.onload = function() {
         errorMessage[0].innerHTML = '';
         emailInput[0].value = '';
         passwordInput[0].value = '';
-        // createMoment();
+        createMoment();
         getUserMoments();
       }
     };
@@ -151,6 +151,9 @@ window.onload = function() {
     }
     xhttp.onreadystatechange = function() {
       if (xhttp.readyState == 4 && xhttp.status == 200) {
+        console.log('here');
+        currentToken = (JSON.parse(event.currentTarget.response)).token;
+        currentUser = (JSON.parse(event.currentTarget.response)).currentUser;
         container[0].style.display = "none";
         signup[0].style.display = "none";
         navLogin.innerHTML = "Logout";
@@ -158,6 +161,7 @@ window.onload = function() {
         navSignup.innerHTML = "Account";
         navSignup[0].classList.toggle('nav-account');
         createMoment();
+        getUserMoments();
       }
     };
     xhttp.open("POST", "http://localhost:3000/users/signup", true);
