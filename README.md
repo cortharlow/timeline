@@ -38,7 +38,7 @@ A beautiful life tracker to see where you've been and when you've been there.
 In our app a user is able to:
   - login or create an account
   
-(once logged in):
+Once logged in and authenticated:
   - See a Google Map with all the places she's been marked
   - Be able to click each location to see more detailed view, such as time, date, and address
   - Interact with a horizontal representation of dates that, when clicked, will highlight the appropriate pointer on the map
