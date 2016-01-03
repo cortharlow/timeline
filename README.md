@@ -10,7 +10,7 @@ A beautiful life tracker to see where you've been and when you've been there.
   - Built with node and express
   - Databasing with MongoDb & Mongoose
   - Dependencies:
-    - bcrypt - Secures and authenticates users
+    - bcrypt - Secures and encrypts user passwords
     - body-parser - Middleware that parses JSON object
     - express-JWT and jsonwebtoken - Tokens 
     - morgan - Logging tool
