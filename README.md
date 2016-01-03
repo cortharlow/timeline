@@ -36,7 +36,7 @@ A beautiful life tracker to see where you've been and when you've been there.
 ### User Stories
 
 In our app a user is able to:
-  - login or create an account
+  - Login or create an account
   
 Once logged in and authenticated:
   - See a Google Map with all the places she's been marked
