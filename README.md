@@ -85,7 +85,7 @@ Hovering over a red circle will highlight the related pointer on the Map as well
 
 ---
 
-#### Copyright notice:
+#### Copyright Notice
 
 The media and information used in this app is for educational purposes.
 
