@@ -3,7 +3,7 @@
 A beautiful life tracker to see where you've been and when you've been there.
 
 ![Main](http://i.imgur.com/eC0TVoM.png?1)
-
+[Demo](http://timeline.cool:3000/)
 ---
 
 ### Tech Specs
@@ -30,7 +30,7 @@ A beautiful life tracker to see where you've been and when you've been there.
     - Mixed data type to "future proof" application 
       - Allows for different types of moments: location data, tweets, instagram posts, etc.
       
-* **Deployed to Digital Ocean as [timeline.cool](http://timeline.cool/)**
+* **Deployed to Digital Ocean as [timeline.cool](http://timeline.cool:3000/)**
   - Note: Server is not always running 
   
 ---
