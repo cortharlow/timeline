@@ -9,6 +9,7 @@ A beautiful life tracker to see where you've been and when you've been there.
 
 Timeline uses the Javascript Google Maps API to record user location whenever she visits the app; by logging in, she can see all the places she's been within an alloted time interval, as well as the frequency of her app usage.
 
+---
 ### Tech Specs
 
 * **Technologies used:**
