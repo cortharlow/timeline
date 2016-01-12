@@ -3,7 +3,6 @@
 A beautiful life tracker to see where you've been and when you've been there.
 
 ![Main](http://i.imgur.com/eC0TVoM.png?1)
-[Try it out here!](http://timeline.cool:3000/)
 
 ---
 
