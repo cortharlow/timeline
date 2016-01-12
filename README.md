@@ -3,7 +3,7 @@
 A beautiful life tracker to see where you've been and when you've been there.
 
 ![Main](http://i.imgur.com/eC0TVoM.png?1)
-[Demo](http://timeline.cool:3000/)
+[Try it out here!](http://timeline.cool:3000/)
 
 ---
 
@@ -81,7 +81,11 @@ Below this is a sidescrolling section with dates.
 Within each date is a red circle, signifying the user recorded a location on that date, known as a Moment.
 Hovering over a red circle will highlight the related pointer on the Map as well as display additional information about that Moment.
 
-### Screenshots
+#### Wireframes
+![First](http://i.imgur.com/8Fanr9t.jpg)
+![Second](http://i.imgur.com/D8fHvWR.jpg)
+
+#### Screenshots
 ![Main](http://i.imgur.com/eC0TVoM.png?1)
 
 ---
